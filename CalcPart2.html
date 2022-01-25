@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="eng-us">
+    <title>Calculator</title>
+    <head>
+        <h1>This is a Calculator</h1>
+    </head>
+    
+    <script>
+        function Solve()
+        {
+            var isequation = true
+            //If there are numbers
+            if (document.getElementById("equation").value.includes("0") || document.getElementById("equation").value.includes("1") || document.getElementById("equation").value.includes("2") || document.getElementById("equation").value.includes("3") || document.getElementById("equation").value.includes("4") || document.getElementById("equation").value.includes("5") || document.getElementById("equation").value.includes("6") || document.getElementById("equation").value.includes("7") || document.getElementById("equation").value.includes("8") || document.getElementById("equation").value.includes("9"))
+            {
+                if( (document.getElementById("equation").value.includes("+") && document.getElementById("equation").value.includes("=")) || (document.getElementById("equation").value.includes("-") && document.getElementById("equation").value.includes("=")) || (document.getElementById("equation").value.includes("*") && document.getElementById("equation").value.includes("=")) || (document.getElementById("equation").value.includes("x") && document.getElementById("equation").value.includes("=")) || (document.getElementById("equation").value.includes("X") && document.getElementById("equation").value.includes("=")) || (document.getElementById("equation").value.includes("/") && document.getElementById("equation").value.includes("=")))
+                {
+                    document.getElementById("test").innerHTML = "g";
+                }
+                else
+                {
+                    isequation = false;
+                }
+            }
+            else
+            {
+                isequation = false; 
+            }
+            if (isequation == true)
+            {
+                const equation = Object.assign([], document.getElementById("equation").value);
+                //saves the numbers and equations
+                let number = ""
+                const numbers = []
+                const simbles = []
+                let finalnumber = 0
+                for (let count = 0; count < equation.length; count++)
+                {
+                    if ((equation[count] == "0") || (equation[count] == "1") || (equation[count] == "2") || (equation[count] == "3") || (equation[count] == "4")|| (equation[count] == "5")|| (equation[count] == "6")|| (equation[count] == "7")|| (equation[count] == "8")|| (equation[count] == "9"))
+                    {
+                        number+=equation[count];
+                    }
+                    else
+                    {
+                        numbers.push(number);
+                        number = "";
+                        simbles.push(equation[count]);
+                    }
+                };
+                for (let count = 0; count < simbles.length+1; count++)
+                {
+                    if (count==0)
+                    {
+                        if (simbles[count] == "+")
+                        {
+                            finalnumber = parseInt(numbers[0]) + parseInt(numbers[1]);
+                            numbers.shift();
+                            numbers.shift();
+                        }
+                        else if (simbles[count] == "-")
+                        {
+                            finalnumber = parseInt(numbers[0]) - parseInt(numbers[1]);
+                        }
+                        else if (simbles[count] == "x" || simbles[count] == "X" || simbles[count] == "*")
+                        {
+                            finalnumber = parseInt(numbers[0]) * parseInt(numbers[1]);
+                            numbers.shift();
+                            numbers.shift();
+                        }
+                        else if (simbles[count] == "/")
+                        {
+                            finalnumber = parseInt(numbers[0]) / parseInt(numbers[1]);
+                        }
+                    }
+                    else
+                    {
+                        if (simbles[count] == "+")
+                        {
+                            finalnumber = finalnumber + parseInt(numbers[0]);
+                            numbers.shift();
+                        }
+                        else if (simbles[count] == "x" || simbles[count] == "X" || simbles[count] == "*")
+                        {
+                            finalnumber = finalnumber * parseInt(numbers[0]);
+                            numbers.shift();
+                        }
+                        else if (simbles[count] == "/")
+                        {
+                            finalnumber = finalnumber / parseInt(numbers[0]);
+                            numbers.shift();
+                        }
+                    }
+                }
+                document.getElementById("test").innerHTML = finalnumber;
+            }
+        }
+    </script>
+
+    <body>
+        <div>
+            <a id="test">The Equation needs at least 2 numbers. It can only operate +,-,* and /. The Equation must have = at the end of the equation</a>
+            <textarea id="equation" cols="40" rows="5">2+3*10=</textarea>
+            <button onclick="Solve()">Solve</button>
+        </div>
+    </body>
+
+    <style>
+        h1 {text-align: center;
+        font-size: xx-large;}
+
+        div {background-color: rgba(161, 161, 255, 0.336);
+        width: 100%;
+        height: 70vh;
+        min-height: fit-content;}
+
+        a {text-align: center;
+        width: 100%;
+        font-size: x-large;}
+
+        button {width: 100%;
+        font-size: xx-large;}
+        
+        textarea {
+            height: 100%;
+            width: 100%;
+            font-size: xx-large;
+        }
+    </style>
+</html>
